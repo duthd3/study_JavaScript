@@ -185,3 +185,5 @@ for(변수선언문 in 객체){...}
 ### 19.14.2 Object.keys/values/entries 메서드
 - 객체 자신의 고유 프로퍼티만 열거하기 위해서는 for...in문을 사용하는 것보다 Object.keys/values/entries메서드를 사용하는 것을 권장한다.
 - Object.keys메서드는 객체 자신의 열거가능한 프로퍼티 키를 배열로 반환한다.
+- Object.values 메서드는 객체 자신의 열거  가능한 프로퍼티 값을 배열로 반환한다.
+- Object.entries 메서드는 객체 자신의 열거 가능한 프로퍼티 키와 값의 쌍의 배열을 배열에 담아 반환한다.
