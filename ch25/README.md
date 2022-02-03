@@ -97,4 +97,11 @@ const Person = class MyClass{}
 - 이 때 this, 즉 클래스가 생성한 인스턴스에 클래스 필드에 해당하는 프로퍼티가 없다면 자동 추가되기 때문이다.
 
 ### 25.7.4 private 필드 정의 제안
-- private 필드를 
+- private 필드를 정의할 수 있는 새로운 표준 사양이 제안 되어 있다.
+- private 필드의 선두에는 #을 붙여준다. private 필드를 참조할 때도 #을 붙여주어야 한다.
+- private 필드는 반드시 클래스 몸체에 정의해야 한다. 
+- private 필드는 클래스 내부에서만 참조할 수 있다.
+- 접근자 프로퍼티를 통해 간접적으로 접근할 수도 있긴 하다.
+
+### 25.7.5 static 필드 정의 제안
+- static public필드, static private필드, static private 메서드를 정의할 수 있는 새로운 표준 사양이 제안되어 있다.
