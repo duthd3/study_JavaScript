@@ -105,3 +105,7 @@ const Person = class MyClass{}
 
 ### 25.7.5 static 필드 정의 제안
 - static public필드, static private필드, static private 메서드를 정의할 수 있는 새로운 표준 사양이 제안되어 있다.
+
+## 25.8 상속에 의한 클래스 확장
+### 25.8.1 클래스 
+
