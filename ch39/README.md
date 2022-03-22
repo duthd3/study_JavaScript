@@ -51,19 +51,32 @@
 - HTML 문서의 모든 요소 노드를 취득하려면 getElementsByTagName 메서드의 인수로'*'를 전달한다.
 - Document.prototype.getElementsByTagName 메서드는 DOM의 루트 노드인 문서 노드, 즉 document를 통해 호출하며 DOM 전체에서 요소 노드를 탐색하여 반환한다.
 - Element.prototype.getElementsByTagName 메서드는 특정 요소 노드를 통해 호출하며, 특정 요소 노드의 자손 노드 중에서 요소 노드를 탐색하여 반환한다.
-- 
 
+### 39.2.3 class를 이용한 요소 노드 취득
+- Document.prototype/Element.prototype.getElementsByClassName 메서드는 인수로 전달한 class 어트리뷰트 값을 갖는 모든 요소 노드들은 탐색하여 반환한다.
+- 인수로 전달할 class 값은 공백으로 구분하여 여러 개의 class를 지정할 수 있다.
+- 태그이름과 같이 Document.prototype에 정의된 메서드와 Element.prototype에 정의된 메서드가 있다.
+- Document.prototype.getElementsByClassName메서드는 DOM의 루트 노드인 문서 노드 즉, document를 통해 호출하며 DOM 전체에서 요소 노드를 탐색하여 반환한다.
+- Elemnet.prototype.getElementsByClassName 메서드는 특정 요소 노드를 통해 호출하며 특정 요소 노드의 자손 노드 중에서 요소 노드를 탐색하여 반환한다.
 
+### 39.2.4 CSS 선택자를 이용한 요소 노드 취득
+- Document.prototype/Element.prototype.querySelector 메서드는 인수로 전달한 CSS 선택자를 만족시키는 하나의 요소 노드를 탐색하여 반환한다.
+- Document.prototype/Element.prototype.querySelectorAll 메서드는 여러 개의 요소 노드 객체를 갖는 DOM 컬렉션 객체인 NodeList(유사 배열, 이터러블) 객체를 반환한다.
+- id 어트리뷰트가 있는 요소 노드를 취득하는 경우에는 getElementById 메서드를 사용하고 그 외의 경우에는 querySelector, querySelectorAll 메서드를 사용하는 것을 권장한다.
 
+### 39.2.5 특정 요소 노드를 취득할 수 있는지 확인
+- Element.prototype.matches 메서드는 인수로 전달한 CSS 선택자를 통해 특정 요소 노드를 취득할 수 있는지 확인한다.
 
+### 39.2.6 HTMLCollection 과 NodeList
+- DOM 컬렉션 객체인 HTMLCollection과 NodeList는 DOM API가 여러개의 결과값을 반환하기 위한 DOM 컬렉션 객체다.
+- 둘 다 모두 유사 배열 객체이면서 이터러블이다. 따라서 for...of 문으로 순회할 수 있으며 스프레드 문법을 사용하여 간단히 배열로 변환할 수 있다.
+- 중요한 특징은 둘 다 살아 있는 객체라는 것이다. HTMLCollection은 언제나 live 객체로 동작한다.
+- 단, NodeList는 대부분의 경우 노드 객체의 상태 변화를 실시간으로 반영하지 않고 과거의 정적 상태를 유지하는 non-live 객체로 동작하지만 경우에 따라 live 객체로 동작할 때가 있다.
 
-
-
-
-
-
-
-
+#### HTMLCollection
+- getElementsByTagName, getElementsByClassName 메서드가 반환하는 HTMLCollection 객체는 노드 객체의 상태 변화를 실시간으로 반영하는 살아 있는 DOM 컬렉션 객체다.
+- HTMLCollection 객체는 실시간으로 노드 객체의 상태 변경을 반영하여 요소를 제거할 수 있기 때문에 HTMLCollection 객체를 for 문으로 순회하면서 노드 객체의 상태를 변경해야 할 때 주의해야 한다.
+- 이 문제는 for 문을 역방향으로 순회하는 방법으로 회피할 수 있다.
 
 
 
