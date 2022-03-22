@@ -78,6 +78,64 @@
 - HTMLCollection 객체는 실시간으로 노드 객체의 상태 변경을 반영하여 요소를 제거할 수 있기 때문에 HTMLCollection 객체를 for 문으로 순회하면서 노드 객체의 상태를 변경해야 할 때 주의해야 한다.
 - 이 문제는 for 문을 역방향으로 순회하는 방법으로 회피할 수 있다.
 
+#### NodeList
+- HTMLCollection 객체의 부작용을 해결하기 위해 querySelectorAll 메서드를 사용한다.
+- NodeList 객체는 실시간으로 노드 객체의 상태 변경을 반영하지 않는 객체다.
+- NodeList 객체는 NodeList.prototype.forEach 메서드를 상속받아 사용할 수 있다.
+- NodeList 객체는 대부분의 경우 노드 객체의 상태 변경을 실시간으로 반영하지 않고 과거의 정적 상태를 유지하는 non-live 객체로 동작한다.
+- 그러나 childNodes 프로퍼티가 반환하는 NodeList 객체는 HTMLCollection 객체와 같이 실시간으로 노드 객체의 상태 변경을 반영하는 live 객체로 동작하므로 주의가 필요하다.
+- 이처럼 HTMLCollection이나 NodeList 객체는 예상과 다르게 동작할 때가 있어 다루기 까다롭고 실수하기 쉽다.
+- 따라서 노드 객체의 상태 변경과 상관없이 안전하게 DOM 컬렉션을 사용하려면 HTMLCollection 이나 NodeList 객체를 배열로 변환하여 사용하는 것을 권장한다.(스프레드 문법이나 Array.from 메서드 사용)
+
+## 39.3 노드 탐색
+- 요소 노드를 취득한 다음, 취드한 요소 노드를 기점으로 DOM 트리의 노드를 옮겨 다니며 부모, 형제, 자식 노드 등을 탐색 해야 할 때가 있다.
+- parentNode, previousSibling, firstChild, childNodes 프로퍼티는 Node.prototype이 제공하고, 프로퍼티 키에 Element가 포함된 previousElementSibling, nextElementSibling과 children 프로퍼티는 Element.prototype이 제공한다.
+- 노프 탐색 프로퍼치는 모두 getter만 존재한다.(읽기전용 이다.)
+
+### 39.3.1 공백 텍스트 노드
+- HTML 요소 사이의 스페이스, 탭, 줄바꿈 등의 공백 문자는 텍스트 노드를 생성한다.(공백 노드)
+
+### 39.3.2 자식 노드 탐색
+|프로퍼티|설명|
+|--|--|
+|Node.prototype.childNodes|자식 노드 모두 탐색. NodeLisst에 담아 반환. 텍스트 노드도 포함되어 있을 수 있다.|
+|Element.prototype.children|자식 노드 중에서 요소 노드만 모두 탐색하여 DOM 컬렉션 객체인 HTMLCollection에 담아 반환. 텍스트 노드 포함X|
+|Node.prototype.firstChild|첫 번째 자식 노드를 반환한다. firstChild 프로퍼티가 반환한 노드는 텍스트 노드이거나 요소 노드이다.|
+|Node.prototype.lastChild|마지막 자식 노드를 반환한다. 텍스트 노드이거나 요소 노드다.|
+|Element.prototype.firstElementChild|첫 번째 자식 요소 노드를 반환한다. 요소 노드만 반환한다.|
+|Element.prototype.lastElementChild|마지막 자식 요소 노드를 반환한다. 요소 노드만 반환한다.|
+
+### 39.3.3 자식 노드 존재 확인
+- 자식 노드가 존재하는지 확인하려면 Node.prototype.hasChildNodes 메서드를 사용한다.(텍스트 노드 포함)
+- 자식 노드 중에 텍스트 노드가 아닌 요소 노드가 존재하는지 확인하려면 hasChildNodes 메서드 대신 children.length 또는 Element 인터페이스의 childElementCount 프로퍼티를 사용한다.
+
+### 39.3.4 요소 노드의 텍스트 노드 탐색
+
+### 39.3.5 부모 노드 탐색
+- 부모 노드를 탐색하려면 Node.prototype.parentNode 프로퍼티를 사용한다. 부모노드가 텍스트 노드인 경우는 없다.
+
+### 39.3.6 형제 노드 탐색
+- 부모노드가 같은 형제 노드를 탐색하려면 다음과 같은 노드 탐색 프로퍼티를 사용한다.
+|프로퍼티|설명|
+|--|--|
+|Node.prototype.previousSibling|부모 노드가 같은 형제 노드 중에서 이전 형제 노드를 탐색 반환. 텍스트 노드일 수도 있다.|
+|Node.prototype.nextSibling|부모 노드가 같은 형제 노드 중에서 자신의 다음 형제 노드를 탐색 반환. 텍스트 노드일 수도 있다.|
+|Element.prototype.previousElementSibling|부모 노드가 같은 형제 요소 노드 중에서 자신의 이전 형제 요소노드를 탐색 반환. 요소노드만 반환|
+|Element.prototype.nextElementSibling|부모 노드가 같은 형제 요소 노드 중에서 자신의 다음 형제 요소노드를 탐색 반환. 요소노드만 반환|
+
+## 39.4 노드 정보 취득
+- 노드 객체에 대한 정보를 취득하려면 다음과 같은 노드 정보 프로퍼티를 사용한다.
+|프로퍼티|설명|
+|--|--|
+|Node.prototype.nodeType|노드 객체의 종류, 즉 노드 타입을 나타내는 상수를 반환한다.(1:요소노드, 3:텍스트 노드, 9:문서노드)|
+|Node.prototype.nodeName|노드의 이름을 문자열로 반환. 요소노드:대문자 문자열로 태그 이름 반환, 텍스트 노드:#text, 문서노드:#document|
+
+## 39.5 요소 노드의 텍스트 조작
+
+### 39.5.1 nodeValue
+
+- 
+
 
 
 
