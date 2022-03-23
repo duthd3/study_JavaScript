@@ -133,19 +133,44 @@
 ## 39.5 요소 노드의 텍스트 조작
 
 ### 39.5.1 nodeValue
+- Node.prototype.nodeValue 프로퍼티는 setter와 getter 모두 존재하는 접근자 프로퍼티다.
+- nodeValue 프로퍼티는 참조와 할당 모두 가능하다.
+- nodeValue 프로퍼티를 참조하면 노드 객체의 값을 반환한다. 노드 객체의 값이란 텍스트 노드의 텍스트다.(문서 노드나 요소 노드의 nodeValue프로퍼티를 참조하면 null을 반환한다.)
+- 텍스트 노드의 nodeValue 프로퍼티에 값을 할당하면 텍스트 노드의 값, 즉 텍스트를 변경할 수 있다.
 
-- 
+### 39.5.2 textContent
+- Node.prototype.textContent 프로퍼티는 setter 와 getter 모두 존재하는 접근자 프로퍼티로서 요소 노드의 텍스트와 모든 자손 노드의 텍스트를 모두 취득하거나 변경한다.
 
+## 39.6 DOM 조작
+ - DOM 조작은 새로운 노드를 생성하여 DOM에 추가하거나 기존 노드를 삭제 또는 교체하는 것을 말한다.
+ - DOM 조작에 의해 DOM에 새로운 노드가 추가되거나 삭제되면 리플로우와 리페인트가 발생하는 원인이 되므로 성능에 영향을 준다(즉,주의가 필요하다).
 
+### 39.6.1 innerHTML
+- Element.prototype.innerHTML 프로퍼티는 setter와 getter 모두 존재하는 접근자 프로퍼티로서 요소 노드의 HTML 마크업을 취득하거나 변경한다.
+- 요소 노드의 innerHTML 프로퍼티에 문자열을 할당하면 요소 노드의 모든 자식 노드가 제거되고 할당한 문자열에 포함되어 있는 HTML 마크업이 파싱되어 요소 노드의 자식 노드로 DOM에 반영된다.
 
+### 39.6.2 insertAdjacentHTML 메서드
+- Element.prototype.insertAdjacentHTML(position, DOMString) 메서드는 기존 요소를 제거하지 않으면서 위치를 지정해 새로운 요소를 삽입한다.
+- 두번째 인수로 전달한 HTML 마크업 문자열을 파싱하고 그 결과로 생성된 노드를 첫 번째 인수로 전달한 위치에 삽입하여 DOM에 반영한다.
+- 첫 번째 인수로 전달할 수 있는 문자열은 'beforebegin', 'afterbegin', 'beforeend', 'afterend' 의 4가지다.
 
-
-
-
-
-
-
-
+### 39.6.3 노드 생성과 추가
+- 요소 노드 생성
+  - Document.prototype.createElement(tagName) 메서드는 요소 노드를 생성하여 반환한다.
+  - 그러나 요소 노드를 생성만 할 뿐 DOM에 추가하지는 않는다. 따라서 이후에 생성된 요소 노드를 DOM에 추가하는 처리가 별도로 필요하다.
+- 텍스트 노드 생성
+  - Document.prototype.createTextNode(text) 메서드는 텍스트 노드를 생성하여 반환한다.
+  - 텍스트 노드는 요소 노드의 자식 노드다. 하지만 createTextNode 메서드로 생성한 텍스트 노드는 요소 노드의 자식 노드로 추가되지 않고 홀로 존재하는 상태다.
+  - 즉, 이후에 생성된 텍스트 노드를 요소 노드에 추가하는 처리가 별도로 필요하다
+- 텍스트 노드를 요소 노드의 자식 노드로 추가
+  - Node.prototype.appendChild(childNode) 메서드는 매개변수 childNode에게 인수로 전달한 노드를 appendChild 메서드를 호출한 노드의 마지막 자식 노드로 추가한다.
+- 요소 노드를 DOM에 추가
+  
+### 39.6.4 복수의 노드 생성과 축
+- DocumentFragment 노드는 문서, 요소, 어트리뷰트, 텍스트 노드와 같은 노드 객체의 일종으로, 부모 노드가 없어서 기존 DOM과는 별도로 존재한다는 특징이 있다.
+- 별도의 서브 DOM을 구성하여 기존 DOM에 추가하기 위한 용도로 사용한다.
+- DocumentFragment 노드를 DOM에 추가하면 자신은 제거되고 자신의 자식 노드만 DOM에 추가된다.
+- Document.prototype.createDocumentFragment 메서드는 비어 있는 DocumentFragment 노드를 생성하여 반환한다.
 
 
 
