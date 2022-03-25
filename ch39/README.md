@@ -238,6 +238,19 @@
   - DOM 프로퍼티로 취득한 최산 상태 값은 문자열이 아닐 수도 있다.
   
 ### 39.7.4 data 어트리뷰트와 dataset 프로퍼티
+- data 어트리뷰트와 dataset 프로퍼티를 사용하면 HTML 요소에 정의한 사용자 정의 어트리뷰트와 자바스크립트 간에 데이터를 교환할 수 있다.
+- data 어트리뷰트 값은 HTMLElement.dataset 프로퍼티로 취득할 수 있다.
+
+## 39.8 스타일
+### 39.8.1 인라인 스타일 조작
+- HTMLElement.prototype.style 프로퍼티는 setter 와 getter 모두 존재하는 접근자 프로퍼티로서 요소 노드의 인라인 스타일을 취득하거나 추가 또는 변경한다.
+
+### 39.8.2 클래스 조작
+`className`
+- Element.prototype.className 프로퍼티는 setter와 getter 모두 존재하는 접근자 프로퍼티로서 HTML 요소의 class 어트리뷰트 값을 취득하거나 변경한다.
+`classList`
+- Element.prototype.classList 프로퍼티는 class 어트리뷰트의 정보를 담은 DOMTokenList 객체를 반환한다.
+
 
 
 
