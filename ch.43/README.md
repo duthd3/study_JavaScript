@@ -39,5 +39,24 @@ const xhr = new XMLHttpRequest();
 
 ### 43.3.3 HTTP 요청 전송
 - 1.XMLHttpRequest.prototype.open 메서드로 HTTP 요청을 초기화한다.
-- 2.필요에 따라 XMLHttpRequest.prototype.setRequestHeader 메서드로 특정 HTTP 요청의 헤더 값을 설정한다.ㅏ
+- 2.필요에 따라 XMLHttpRequest.prototype.setRequestHeader 메서드로 특정 HTTP 요청의 헤더 값을 설정한다.
 - 3.XMLHttpRequest.prototype.send 메서드로 HTTP 요청을 전송한다.
+- XMLHttpRequest.prototype.open
+  - open 메서드는 서버에 전송할 HTTP 요청을 초기화 한다.
+  ```js
+    xhr.open(method, url[, async])
+  ```
+  - method(HTTP 요청메서드, "GET", "POST", "PUT", "DELETE" 등)
+  - url(HTTP 요청을 전송할 URL)
+  - async(비동기 요청 여부, 옵션으로 기본값은 true이며, 비동기 방식으로 동작한다.)
+- XMLHttpRequest.prototype.send
+  - send 메서드는 open 메서드로 초기화된 HTTP 요청을 서버에 전송한다.
+  - 기본적으로 서버로 전송하는 데이터는 GET, POST 요청 메서드에 따라 전송 방식에 차이가 있다.
+  - GET 요청 메서드의 경우 데이터를 URL의 일부분인 쿼리 문자열로 서버에 전송한다.
+  - POST 요청 메서드의 경우 데이터를 요청 몸체에 담아 전송한다.
+  - send 메서드에는 요청 몸체에 담아 전송할 데이터(페이로드)를 인수로 전달할 수 있다.
+  - 페이로드가 객체인 경우 반드시 JSON.stringfy 메서드를 사용하여 직렬화한 다음 전달해야 한다.
+- XMLHttpRequest.prototype.setRequestHeader
+  - setRequestHeader 메서드는 특정 HTTP 요청의 헤더 값을 설정한다.
+  - 반드시 open 메서드를 호출한 이후에 호출해야 한다.
+  
