@@ -1,0 +1,7 @@
+/*{
+    "name":"Lee",
+    "age":20,
+    "alive":true,
+    "hobby":["traveling","tennis"],
+}
+*/
